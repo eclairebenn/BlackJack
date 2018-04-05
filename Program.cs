@@ -8,6 +8,8 @@ namespace blackjack
         {
             Game newGame = new Game();
             newGame.PlayHand();
+
+
         }
     }
 }

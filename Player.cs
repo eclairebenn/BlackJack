@@ -35,5 +35,24 @@ namespace blackjack
             hand.Clear();
             handtotal = 0;
         }
+
+        public void findTotal()
+        {
+            this.handtotal = 0;
+            foreach(Card card in this.hand)
+            {
+                this.handtotal += card.val;
+            }
+            foreach(Card card in this.hand)
+            {
+                if(card.stringVal == "Ace")
+                {
+                    if(this.handtotal > 21)
+                    {
+                        card.val = 1;
+                    }                    
+                }                  
+            }
+        }
     }
 }
