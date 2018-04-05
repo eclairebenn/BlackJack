@@ -21,5 +21,22 @@ namespace blackjack
         public override string ToString(){
             return $"{stringVal} of {suit}";
         }
+
+        public void printcard()
+        {
+            if(this.suit == "Heart" || this.suit == "Diamond")
+            {
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                System.Console.WriteLine(this);
+                Console.ResetColor();                
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                System.Console.WriteLine(this);
+                Console.ResetColor();     
+            }
+
+        }
     }
 }

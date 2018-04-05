@@ -20,7 +20,10 @@ namespace blackjack
         public void PlayHand(){
             if(deck.cards.Count < 18)
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("The deck needs to be reshuffled. Hold on bro...");
+                System.Console.WriteLine("/\\/\\/\\/\\/\\/\\  Shuffle Shuffle  /\\/\\/\\/\\/\\/\\/\\");
+                Console.ResetColor();
                 deck.reset();
                 deck.blackJackVals();
                 deck.shuffle();
@@ -30,31 +33,35 @@ namespace blackjack
                 player.draw(deck);
                 dealer.draw(deck);
             }
-            System.Console.WriteLine("The Dealer is Showing: "+dealer.hand[0]);
+            System.Console.WriteLine("The Dealer is Showing: "+ dealer.hand[0]);
             ShowHand(player);
             player.findTotal();
             dealer.findTotal();
             if(player.handtotal == 21)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 System.Console.WriteLine($"You won {player.name}! The dealer had {dealer.handtotal} and you had {player.handtotal}");
+                Console.ResetColor();
                 NewHand();
             }
             else if(dealer.handtotal == 21)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 System.Console.WriteLine($"You lost {player.name}! The dealer had {dealer.handtotal} and you had {player.handtotal}");
+                Console.ResetColor();
                 NewHand();
             }
             System.Console.WriteLine("Do you want to Hit [y/n]");  
             string answer = Console.ReadLine().ToLower();
             while(answer=="y"){
-                player.draw(deck);
-                System.Console.WriteLine($"The player total after draw is {player.handtotal}");                
-                player.findTotal();
-                System.Console.WriteLine($"The player total after find total func is {player.handtotal}");                
+                player.draw(deck);              
+                player.findTotal();            
                 ShowHand(player);
                 if (CheckBust(player) == true)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
                     System.Console.WriteLine($"The player busted the player total is {player.handtotal}");
+                    Console.ResetColor();
                     NewHand();
                 }
                 System.Console.WriteLine("Do you want to Hit [y/n]");  
@@ -66,19 +73,20 @@ namespace blackjack
             System.Console.WriteLine("The Dealer's Hand Is:");
             foreach(Card card in dealer.hand)
             {
-                System.Console.WriteLine(card);
+                card.printcard();
             }
             
             while(dealer.hitStay())
             {
                 Card newcard = dealer.draw(deck);
                 System.Console.WriteLine($"The dealer drew a {newcard}");
-                // dealer.findTotal();
 
 
                 if(CheckBust(dealer))
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     System.Console.WriteLine($"Congratulations {player.name}! The dealer busted! Damn you! The dealer had {dealer.handtotal} and you had {player.handtotal}");
+                    Console.ResetColor();
                     NewHand();
                 }                
             }
@@ -87,12 +95,16 @@ namespace blackjack
 
             if(dealer.handtotal > player.handtotal)
             {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
                 System.Console.WriteLine($"You lost {player.name}! The dealer had {dealer.handtotal} and you had {player.handtotal}");
+                Console.ResetColor();
                 NewHand();
             }
             if(player.handtotal >= dealer.handtotal)
             {
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
                 System.Console.WriteLine($"You won {player.name}! The dealer had {dealer.handtotal} and you had {player.handtotal}");
+                Console.ResetColor();
                 NewHand();
             }
 
@@ -102,13 +114,12 @@ namespace blackjack
         public void ShowHand(Player player){
             System.Console.WriteLine(player.name+"'s Hand Is:");
             for(int i=0;i<player.hand.Count;i++){
-                System.Console.WriteLine(player.hand[i]);
+                (player.hand[i]).printcard();
             }
         }
         public bool CheckBust(Player player){
             player.findTotal();
             if(player.handtotal > 21){
-                System.Console.WriteLine("Bust");
                 return true;
             }
             return false;
@@ -121,6 +132,7 @@ namespace blackjack
             if (newhand == "y"){
                 dealer.clearHand();
                 player.clearHand();
+                System.Console.WriteLine("---------------------------------------------------------------------");
                 PlayHand();
             }
             System.Console.WriteLine("Thanks for playing!");
