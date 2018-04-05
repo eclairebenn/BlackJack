@@ -21,5 +21,9 @@ namespace blackjack
             this.val = val;
         }
 
+        public override string ToString(){
+            return $"{stringVal} of {suit}";
+        }
+
     }
 }

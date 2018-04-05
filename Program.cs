@@ -6,19 +6,9 @@ namespace blackjack
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Deck deck = new Deck();
-            deck.blackJackVals();
-            Player player1 = new Dealer();
-            deck.shuffle();
-            player1.draw(deck);
-            player1.draw(deck);
-            (player1 as Dealer).findTotal();
-            (player1 as Dealer).hitStay();
-            
+            Game newGame = new Game();
+            newGame.PlayHand();
 
-            deck.reset();
-            Console.WriteLine(player1.hand);
         }
     }
 }
